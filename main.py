@@ -1,7 +1,4 @@
 
-#app id: 1256132540880916500
-#public key: 2ac4fbff4511db233eef25c60ff958340766c87676ef388f075292ddc967ebb8
-#token: MTI1NjEzMjU0MDg4MDkxNjUwMA.GRyG-p.eEoE42k8yQQKfcYGrD7Q1J6YiE-97ZWWJXF4Rw
 import discord
 import os
 from dotenv import load_dotenv
