@@ -1,6 +1,7 @@
 
 import discord
 import os
+import  openai
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -8,6 +9,9 @@ load_dotenv()
 
 # Get the token from environment variables
 TOKEN = os.getenv('DISCORD_TOKEN')
+openai.api_key = os.getenv('OPEN_AI_TOKEN')
+
+
 
 if not TOKEN:
     print("Error: DISCORD_TOKEN not found in environment variables")
@@ -22,7 +26,19 @@ class MyClient(discord.Client):
             return  # Ignore messages from the bot itself
         print(f'Message from {message.author}: {message.content}')
         try:
-            await message.channel.send('Hey I am bot')
+            response = openai.Completion.create(
+                engine="gpt-3.5-turbo-instruct",
+                prompt=message.content,
+                temperature=1,
+                max_tokens=256,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0
+            )
+            messageSend = response.choices[0].text.strip()
+            print(response)
+            await message.channel.send(messageSend)
+
         except Exception as e:
             print(f'Error sending message: {e}')
 
